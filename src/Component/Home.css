@@ -1,0 +1,8 @@
+.Home {
+    width: 100%;
+    height: 100vh;
+    background-image: url(mq.jpg); /* Remove the gradient to check clarity */
+    background-size: cover; /* Ensure the image covers the entire area */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent tiling */
+}

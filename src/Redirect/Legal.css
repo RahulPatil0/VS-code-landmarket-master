@@ -1,0 +1,101 @@
+/* Wrapper Styling */
+.legal-agreements-wrapper {
+    background-image: url('l1.jpg');
+    background-size: cover;
+    background-position: center;
+    padding-top: 0; /* Remove top padding */
+    padding-bottom: 100px; /* Adjust bottom padding as needed */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Container Styling */
+.legal-container {
+    max-width: 700px; /* Adjust width to make it smaller */
+    margin: 0 auto;
+    padding: 40px;
+    background: #ffffff; /* Remove transparency */
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    top: 0; /* Ensure it starts from the top */
+}
+
+/* Header Styles */
+.legal-header {
+    text-align: center;
+    margin-bottom: 20px; /* Adjust spacing below the header */
+    padding-top: 0; /* Remove padding at the top */
+}
+
+.legal-header h1 {
+    font-size: 3rem;
+    color: #333;
+    font-weight: 700;
+}
+
+/* Section Styles */
+.legal-section {
+    margin-bottom: 40px;
+}
+
+.legal-section h2 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* Legal Card Styles */
+.legal-card {
+    background: none; /* Remove background color */
+    padding: 20px;
+    border-radius: 0; /* Remove border radius for a flat look */
+    box-shadow: none; /* Remove box shadow */
+    margin-bottom: 20px;
+    border: none; /* Remove border */
+}
+
+/* Link Styles */
+.legal-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 1.2rem;
+    color: #2980b9;
+    text-decoration: none;
+}
+
+.legal-link:hover {
+    text-decoration: underline;
+    color: #1c5985;
+}
+
+/* Remove border from main section */
+.legal-header, .legal-section {
+    border: none; /* Remove border */
+    box-shadow: none; /* Remove box shadow */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .legal-container {
+        padding: 20px;
+    }
+
+    .legal-header h1 {
+        font-size: 2.5rem;
+    }
+
+    .legal-section h2 {
+        font-size: 2rem;
+    }
+
+    .legal-card {
+        padding: 15px;
+    }
+
+    .legal-link {
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,38 @@
+.unique-searchbar-container1 {
+     height: 40px; 
+    /* width: 250px;  */
+    /* justify-content: center; */
+    padding-left: 300px;
+    padding-top: 30px;
+    padding-bottom: -30px;
+  }
+  
+  .unique-searchbar-inner-container1 {
+    width: 60%; /* Good width for the screen */
+    max-width: 800px;
+    min-width: 300px; /* Flexible width */
+  }
+  
+  .unique-searchbar-card {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .unique-searchbar-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+  
+  .unique-searchbar-input {
+    border-radius: 5px;
+  }
+  
+  .unique-searchbar-button {
+    border-radius: 5px;
+    width: 50%;
+    background-color: #007bff;
+    color: white;
+  }
+  

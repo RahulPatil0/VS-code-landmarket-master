@@ -1,0 +1,23 @@
+/* Chatbox.css */
+
+.chatbox {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px; /* Adjust width as needed */
+    z-index: 1000; /* Ensure it sits above other content */
+  }
+  
+  /* Additional styles from previous setup */
+  .container {
+    /* Existing container styles */
+  }
+  
+  .card-body {
+    /* Existing styles for the chat area */
+  }
+  
+  .card-footer {
+    /* Existing styles for the footer */
+  }
+  

@@ -1,0 +1,32 @@
+/* Header styles */
+.header-navbar {
+  background-color: white; /* Set the background to white */
+  color: black; /* Set the text color to black */
+  padding: 10px 0; /* Add some padding for spacing */
+}
+
+/* Link styles */
+header a {
+  color: black; /* Make all links black */
+  text-decoration: none; /* Remove underline from links */
+  margin: 0 15px; /* Add spacing between the links */
+  font-size: 16px; /* Set the font size */
+}
+
+/* Logo styles */
+header .logo img {
+  max-height: 60px; /* Adjust the logo size if needed */
+}
+
+/* Icon styles */
+header i {
+  color: black; /* Set icons to black */
+}
+
+/* Optional: Hover effect */
+header a:hover {
+  color: #007bff; /* Change link color on hover (optional) */
+}
+
+
+

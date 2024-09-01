@@ -1,0 +1,9 @@
+.contact-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.contact-container ul {
+    list-style-type: none;
+    padding: 0;
+}

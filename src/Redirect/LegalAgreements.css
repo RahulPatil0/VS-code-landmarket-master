@@ -1,0 +1,142 @@
+/* Global Styling */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    padding: 0; /* Ensure no default padding/margin from the body */
+  }
+  
+  /* Header Styling */
+  .header {
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-sizing: border-box; /* Include padding in width calculation */
+  }
+  
+  /* Footer Styling */
+/* Footer Styling */
+/* Footer Styling */
+.footer {
+  width: 100%;
+  height: 40%;
+  background-color: #333;
+  color: #fff;
+  padding: 8px 0; /* Reduced top and bottom padding */
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  box-sizing: border-box; /* Include padding in width calculation */
+  font-size: 0.8rem; /* Smaller font size */
+  line-height: 1.2; /* Adjust line height to match the smaller font size */
+}
+
+  
+  /* Wrapper Styling */
+  .legal-agreements-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure wrapper takes full viewport height */
+    background-color: #f4f4f4; /* Fallback color if background image is not loaded */
+    padding-top: 0; /* Remove space for the fixed header */
+    padding-bottom: 0; /* Remove space for the fixed footer */
+  }
+  
+  /* Main Content Styling */
+  .legal-agreements-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px;
+    background-image: url('lam.jpg'); /* Background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; /* Ensure the image does not repeat */
+    background-attachment: fixed; /* Make sure the background image stays fixed */
+  }
+  
+  /* Heading and Button Styles */
+  h1, h2, h3 {
+    margin: 0;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  button {
+    margin: 1rem 0;
+    padding: 10px 20px;
+    background-color: #2980b9;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #3498db;
+  }
+  
+  /* Section Content Styles */
+  .section-content {
+    width: 100%;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0); /* Transparent background */
+    padding: 20px;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .section-content-active {
+    background: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+  
+    button {
+      padding: 8px 16px;
+    }
+  
+    .section-content {
+      padding: 15px;
+    }
+  }
+  /* Legal Agreements Page */
+.section-content p {
+  font-size: 1rem; /* Base font size */
+  line-height: 1.6; /* Better readability */
+  margin: 0 15px; /* Margin to make text not touch the edges */
+}
+
+/* Responsive Design for Mobile Devices */
+@media (max-width: 600px) {
+  .section-content p {
+    font-size: 0.9rem; /* Smaller text for smaller screens */
+    margin: 0 10px; /* Smaller margin for smaller screens */
+  }
+}
+
+/* Responsive Design for Tablets */
+@media (min-width: 601px) and (max-width: 900px) {
+  .section-content p {
+    font-size: 1rem; /* Standard text size for tablets */
+    margin: 0 15px; /* Standard margin for tablets */
+  }
+}

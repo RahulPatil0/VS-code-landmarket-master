@@ -1,0 +1,116 @@
+/* LiveNews.css */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+.header-navbar {
+  background-color: #0a74da;
+  padding: 10px 20px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-navbar-nav {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.header-nav-item {
+  margin: 0 10px;
+}
+
+.header-nav-link {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.header-nav-link:hover {
+  color: #ffdd57;
+}
+
+.header-landmarket-logo {
+  width: 150px;
+}
+
+.header-navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.live-news-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 20px;
+  min-height: calc(100vh - 70px); /* Adjust according to header height */
+}
+
+.topics-menu {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.topic-button {
+  background-color: #0a74da;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.topic-button:hover, .topic-button.active {
+  background-color: #ffdd57;
+}
+
+.news-list {
+  width: 80%;
+  max-width: 1000px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.news-item {
+  margin-bottom: 15px;
+}
+
+.news-item a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.news-item a:hover {
+  color: #0a74da;
+}
+
+.news-item h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #0a74da;
+}
+
+.news-item p {
+  font-size: 16px;
+  color: #666;
+}
