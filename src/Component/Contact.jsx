@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookSquare, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faHeadset, faEnvelopeOpenText, faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
 import './Contact.css';
-import contactImage from '../assets/nature2.jpg'; // Replace with the correct path
+// import contactImage from '../assets/nature2.jpg'; // Replace with the correct path
 
 const Contact = () => {
   return (
@@ -12,7 +12,7 @@ const Contact = () => {
       <Header /> {/* Add the Header component */}
 
       <section className="bg-light py-3 py-md-5">
-        <div className="container">
+        <div>
           <div className="row justify-content-md-center">
             <div className="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
               <h3 className="fs-6 text-secondary mb-2 text-uppercase text-center">Get in Touch</h3>

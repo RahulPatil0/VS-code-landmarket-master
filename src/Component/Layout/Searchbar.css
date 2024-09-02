@@ -1,46 +1,62 @@
+/* searchbar.css */
 .searchbar-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 50vh; /* Adjusted height for better vertical positioning */
+  height: 60vh;
   width: 100%;
-  padding: 0 20px;
+  padding: 0 30px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.searchbar-title {
+  font-size: 60px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 20px;
+  margin-top: -200px;
 }
 
 .searchbar-form {
   display: flex;
-  gap: 12px; /* Increased space between input fields for better separation */
-  align-items: center; /* Center items vertically */
+  gap: 16px;
+  align-items: center;
+  width: 90%;
+  max-width: 1100px;
+  padding: 15px 20px;
+  border-radius: 0px;
 }
 
 .searchbar-input {
-  width: 150px; /* Increased width for more space */
-  height: 36px; /* Increased height for better usability */
-  padding: 8px 12px;
-  font-size: 15px; /* Larger font size for better readability */
+  flex: 1;
+  height: 50px;
+  padding: 10px 15px;
+  font-size: 16px;
   border: 1px solid #ddd;
-  border-radius: 4px; /* Added border radius for a softer look */
+  border-radius: 4px;
   outline: none;
-  transition: border-color 0.3s ease; /* Smooth border color transition */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .searchbar-input:focus {
-  border-color: #007bff; /* Blue border on focus for better visibility */
-  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); /* Added box-shadow for focus effect */
+  border-color: #0056b3;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
 }
 
 .searchbar-button {
-  height: 36px; /* Match button height with input fields */
-  padding: 0 16px; /* Added horizontal padding */
-  font-size: 15px; /* Larger font size for better readability */
-  color: #fff;
-  background-color: #007bff;
+  height: 50px;
+  padding: 0 20px;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #0056b3;
   border: none;
-  border-radius: 4px; /* Added border radius for consistency with inputs */
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Smooth background color transition */
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .searchbar-button:hover {
-  background-color: #0056b3; /* Darker blue on hover for better feedback */
+  background-color: #004494;
+  transform: translateY(-2px);
 }

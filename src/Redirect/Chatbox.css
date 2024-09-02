@@ -1,23 +1,13 @@
-/* Chatbox.css */
+/* Chatbot.css */
+.chatbox-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 20px;
+  z-index: 1000; /* Ensure the chatbot is on top of other content */
+}
 
-.chatbox {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 300px; /* Adjust width as needed */
-    z-index: 1000; /* Ensure it sits above other content */
-  }
-  
-  /* Additional styles from previous setup */
-  .container {
-    /* Existing container styles */
-  }
-  
-  .card-body {
-    /* Existing styles for the chat area */
-  }
-  
-  .card-footer {
-    /* Existing styles for the footer */
-  }
-  
+.chatbox-iframe {
+  border: none; /* Remove default border around the iframe */
+  border-radius: 8px; /* Optional: round the corners */
+}

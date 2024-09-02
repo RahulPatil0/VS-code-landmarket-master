@@ -1,3 +1,4 @@
+// Searchbar.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Searchbar.css';
@@ -58,6 +59,7 @@ const Searchbar = () => {
 
   return (
     <div className="searchbar-container">
+      <div className="searchbar-title">Search Properties</div>
       <form className="searchbar-form">
         <input
           type="text"

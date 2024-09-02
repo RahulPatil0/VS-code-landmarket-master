@@ -1,32 +1,46 @@
-/* Header styles */
 .header-navbar {
-  background-color: white; /* Set the background to white */
-  color: black; /* Set the text color to black */
-  padding: 10px 0; /* Add some padding for spacing */
+  background-color: white;
+  color: black;
+  padding: 5px 0;
+  height: 90px;
+  display: flex;
+  align-items: center;
 }
 
-/* Link styles */
-header a {
-  color: black; /* Make all links black */
-  text-decoration: none; /* Remove underline from links */
-  margin: 0 15px; /* Add spacing between the links */
-  font-size: 16px; /* Set the font size */
+.header-nav-link {
+  color: black;
+  text-decoration: none;
+  margin: 0 10px;
+  font-size: 24px;
+  font-weight: bold;
 }
 
-/* Logo styles */
-header .logo img {
-  max-height: 60px; /* Adjust the logo size if needed */
+.header-landmarket-logo {
+  max-height: 80px;
+  max-width: 100px;
 }
 
-/* Icon styles */
-header i {
-  color: black; /* Set icons to black */
+.header-navbar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
 
-/* Optional: Hover effect */
-header a:hover {
-  color: #007bff; /* Change link color on hover (optional) */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
+.header-navbar-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
 
-
+.header-navbar-left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
