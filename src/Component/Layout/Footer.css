@@ -1,35 +1,55 @@
-footer {
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 1px 0; /* Reduce padding */
-  margin-top: 20px;
-  font-size: 14px; /* Adjust font size */
+/* Footer.css */
+.footer {
+  background-color: #ffffff; /* White background */
+  /* width: 100%; Full width */
+  padding: 15px 0; /* Padding for spacing */
+  color: #333; /* Dark text color */
+  text-align: center; /* Center text by default */
 }
 
-footer a {
-  color: #fff;
+@media (min-width: 992px) {
+  .text-lg-start {
+    text-align: left; /* Align text to the left on larger screens */
+  }
+}
+
+.social-media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.social-icons a {
+  margin: 0 10px;
+  font-size: 18px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-around;
+  /* width: 100%; */
+  margin-bottom: 15px;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 10px;
+  border-top: 1px solid #444;
+}
+
+.footer-bottom p {
+  margin: 5px 0;
+  font-size: 12px;
+}
+
+.footer-bottom a {
+  color: #ffffff;
   text-decoration: none;
 }
 
-footer a:hover {
-  text-decoration: underline;
-}
-
-footer .footer-links {
+.footer-container {
   display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 5px; /* Reduce bottom margin */
-}
-
-footer .social-icons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-footer p {
-  margin: 2px 0; /* Reduce top and bottom margins */
-  font-size: 6px; /* Smaller font size for paragraph */
+  flex-direction: column;
+  align-items: center;
 }

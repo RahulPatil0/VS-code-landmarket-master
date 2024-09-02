@@ -100,7 +100,6 @@ import { Link } from 'react-router-dom';
 import { useKeycloak } from '@react-keycloak/web';
 import { FaHome, FaInfoCircle, FaPhone, FaUserPlus, FaSignInAlt, FaSellsy, FaShoppingCart, FaQuestionCircle, FaNewspaper, FaBell } from 'react-icons/fa';
 import './Header.css';
-// import NotificationComponent from '../NotificationComponent';
 
 const Header = () => {
   const { keycloak } = useKeycloak();

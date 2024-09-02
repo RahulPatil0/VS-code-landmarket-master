@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../Layout/Layout';
-import './Signup.css'; // Assuming you'll use this for custom styling
+import './Signup.css'; // Custom styling
 
 const Signup = ({ onRegister }) => {
   const [formData, setFormData] = useState({
@@ -37,8 +37,6 @@ const Signup = ({ onRegister }) => {
       });
 
       if (registerResponse.ok) {
-        console.log('Registration successful:', registerResponse);
-        
         const loginResponse = await fetch('http://localhost:8080/api/v1/auth/login', {
           method: 'POST',
           headers: {
@@ -56,7 +54,6 @@ const Signup = ({ onRegister }) => {
           localStorage.setItem('userId', loginData.user.id);
 
           onRegister(true);
-
           navigate('/sell-property');
         } else {
           const loginErrorData = await loginResponse.json();
@@ -64,11 +61,9 @@ const Signup = ({ onRegister }) => {
         }
       } else {
         const registerErrorData = await registerResponse.json();
-        console.error('Error in registration:', registerErrorData);
         setError('Error in registration: ' + registerErrorData.message);
       }
     } catch (error) {
-      console.error('Network error:', error);
       setError('Network error. Please try again later.');
     }
   };

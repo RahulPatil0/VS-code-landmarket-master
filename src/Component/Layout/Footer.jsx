@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './Footer.css'; 
 
 const Footer = () => {
   return (
-    <div className="footer-container">
-      <footer className="text-center text-lg-start text-dark" style={{ backgroundColor: '#ffffff', width: '100%' }}>
+    <>
+      <footer className="text-center text-dark" style={{ backgroundColor: '#ffffff' }}>
         {/* Section: Social media */}
         <section className="d-flex justify-content-between p-4 text-white" style={{ backgroundColor: '#ffff' }}>
           {/* Left */}
@@ -35,7 +36,7 @@ const Footer = () => {
         </section>
         {/* Section: Links */}
         <section>
-          <div className="container text-center text-md-start mt-2">
+          <div className="footer-container text-center text-md-start mt-2">
             <div className="row mt-3">
               {/* Company Information */}
               <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-3">
@@ -85,7 +86,7 @@ const Footer = () => {
           <a className="text-dark" href="https://landmarket.com/">LandMarket.com</a>
         </div>
       </footer>
-    </div>
+    </>
   );
 };
 

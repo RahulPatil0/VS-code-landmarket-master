@@ -177,8 +177,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './BuyProperty.css'; // Import updated CSS file
-import Header from '../Component/Layout/Header'; 
-import Footer from '../Component/Layout/Footer'; 
+import Header from '../Component/Layout/Header';
+import Footer from '../Component/Layout/Footer';
 
 const BuyProperty = () => {
   const [properties, setProperties] = useState([]);
@@ -267,62 +267,62 @@ const BuyProperty = () => {
     <>
       <Header />
       <div className="container mt-4">
-        <h1 className="text-center">Properties for Sale</h1>
-
-        {/* Filter form */}
-        <div className="filter-form-container mb-4 p-3 rounded shadow-sm">
-          <h3 className="text-center">Filter Properties</h3>
-          <form>
-            <div className="form-row">
-              <div className="form-group col-md-3">
-                <input
-                  type="text"
-                  id="state"
-                  name="state"
-                  className="form-control form-control-sm"
-                  placeholder="State"
-                  value={filters.state}
-                  onChange={handleFilterChange}
-                />
-              </div>
-              <div className="form-group col-md-3">
-                <input
-                  type="text"
-                  id="city"
-                  name="city"
-                  className="form-control form-control-sm"
-                  placeholder="City"
-                  value={filters.city}
-                  onChange={handleFilterChange}
-                />
-              </div>
-              <div className="form-group col-md-3">
-                <input
-                  type="text"
-                  id="zipcode"
-                  name="zipcode"
-                  className="form-control form-control-sm"
-                  placeholder="Zipcode"
-                  value={filters.zipcode}
-                  onChange={handleFilterChange}
-                />
-              </div>
-              <div className="form-group col-md-3">
-                <input
-                  type="text"
-                  id="area"
-                  name="area"
-                  className="form-control form-control-sm"
-                  placeholder="Size (sq ft)"
-                  value={filters.area}
-                  onChange={handleFilterChange}
-                />
-              </div>
-            </div>
-          </form>
-        </div>
 
         <div className="row">
+          <h1 className="text-center">Properties for Sale</h1>
+
+          {/* Filter form */}
+          <div className="filter-form-container mb-4 p-3 rounded shadow-sm">
+            <h3 className="text-center">Filter Properties</h3>
+            <form>
+              <div className="form-row">
+                <div className="form-group col-md-3">
+                  <input
+                    type="text"
+                    id="state"
+                    name="state"
+                    className="form-control form-control-sm"
+                    placeholder="State"
+                    value={filters.state}
+                    onChange={handleFilterChange}
+                  />
+                </div>
+                <div className="form-group col-md-3">
+                  <input
+                    type="text"
+                    id="city"
+                    name="city"
+                    className="form-control form-control-sm"
+                    placeholder="City"
+                    value={filters.city}
+                    onChange={handleFilterChange}
+                  />
+                </div>
+                <div className="form-group col-md-3">
+                  <input
+                    type="text"
+                    id="zipcode"
+                    name="zipcode"
+                    className="form-control form-control-sm"
+                    placeholder="Zipcode"
+                    value={filters.zipcode}
+                    onChange={handleFilterChange}
+                  />
+                </div>
+                <div className="form-group col-md-3">
+                  <input
+                    type="text"
+                    id="area"
+                    name="area"
+                    className="form-control form-control-sm"
+                    placeholder="Size (sq ft)"
+                    value={filters.area}
+                    onChange={handleFilterChange}
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
           {filteredProperties.length > 0 ? (
             filteredProperties.map((item, index) => (
               <div className="col-md-4" key={index}>
