@@ -1,38 +1,74 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
 .how-to-sell {
-    padding: 20px;
-  }
-  
-  .how-to-sell h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px; /* Adjust gap between cards */
-    justify-content: center;
-  }
-  
-  .card-container .card {
-    flex: 1 1 calc(33.333% - 20px); /* Three cards in a row with gaps */
-    box-sizing: border-box;
-    background: #f9f9f9; /* Card background color */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    transition: transform 0.3s ease;
-  }
-  
-  .card-container .card:nth-child(odd) {
-    background: #e3f2fd; /* Light blue color for odd cards */
-  }
-  
-  .card-container .card:nth-child(even) {
-    background: #c5cae9; /* Light purple color for even cards */
-  }
-  
-  .card-container .card:hover {
-    transform: translateY(-5px);
-  }
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: url('/s6.jpg') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+  color: #333;
+}
+
+.accordion-container {
+  width: 90%;
+  max-width: 700px;
+  height: auto;
+  max-height: 600px;
+  background: rgba(249, 249, 249, 0.8);
+  border-radius: 8px;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.accordion-item {
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.accordion-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+.accordion-title h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.accordion-icon {
+  font-size: 20px;
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+
+.accordion-icon.open {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  padding: 15px;
+  border-top: 1px solid #ddd;
+  background-color: #fafafa;
+}
+
+.accordion-content p {
+  margin: 0 0 10px;
+  line-height: 1.5;
+}

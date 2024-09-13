@@ -1,8 +1,11 @@
-import React from 'react';
-import Card3D from './Card3D';
+import React, { useState } from 'react';
 import './HowToSell.css';
+import Header from '../Component/Layout/Header';
+// import Footer from '../Component/Layout/Footer';
 
 const HowToSell = () => {
+  const [openStep, setOpenStep] = useState(null);
+
   const steps = [
     {
       title: "Step 1: Sign In or Register",
@@ -42,83 +45,42 @@ const HowToSell = () => {
             <strong>Property Description:</strong> Write a detailed description of your property, highlighting its features, benefits, and any unique aspects that make it appealing to potential buyers.
           </p>
           <p>
-            <strong>Upload Images:</strong> Upload high-quality images of your property. Make sure to include images of both the interior and exterior to give buyers a comprehensive view.
+            <strong>Upload Images:</strong> Upload high-quality images of your property, both interior and exterior, for a comprehensive view.
           </p>
           <p>
-            <strong>Upload Documents:</strong> Attach any necessary documents like the property deed, land registry, or any legal documentation required to facilitate the sale.
-          </p>
-        </>
-      )
-    },
-    {
-      title: "Step 4: Review Your Listing",
-      content: (
-        <p>
-          After filling out all the details, review your listing to ensure all the information is accurate. Make sure the images are properly uploaded and the description is clear and informative.
-        </p>
-      )
-    },
-    {
-      title: "Step 5: Submit Your Listing",
-      content: (
-        <p>
-          Once you’re satisfied with the listing, click on the Submit or Post Property button. Your property will then be listed on LandMarket, where potential buyers can view it.
-        </p>
-      )
-    },
-    {
-      title: "Step 6: Respond to Inquiries",
-      content: (
-        <p>
-          After your property is listed, interested buyers may contact you via the LandMarket messaging system. Respond promptly to any inquiries to facilitate the sale process.
-        </p>
-      )
-    },
-    {
-      title: "Step 7: Finalize the Sale",
-      content: (
-        <p>
-          Once you’ve found a buyer, you can negotiate the terms of the sale. When both parties agree, complete the sale according to local laws and regulations. After the sale is finalized, update the status of your listing on LandMarket to indicate that the property has been sold.
-        </p>
-      )
-    },
-    {
-      title: "Step 8: Remove the Listing (Optional)",
-      content: (
-        <p>
-          If for any reason you decide not to sell your property, you can go back to the Sell Property section. Locate your listing and select the option to remove or deactivate it from the marketplace.
-        </p>
-      )
-    },
-    {
-      title: "Additional Tips",
-      content: (
-        <>
-          <p>
-            <strong>Provide Accurate Information:</strong> Ensure all details provided about the property are accurate to avoid any legal issues.
-          </p>
-          <p>
-            <strong>Stay Responsive:</strong> Being responsive to buyer inquiries can help speed up the selling process.
-          </p>
-          <p>
-            <strong>Consider Professional Help:</strong> If you’re unfamiliar with the selling process, consider hiring a real estate agent or legal professional to assist you.
+            <strong>Upload Documents:</strong> Attach any necessary legal documents such as the property deed, land registry, or other documentation required for the sale.
           </p>
         </>
       )
     }
   ];
 
+  const toggleStep = (index) => {
+    setOpenStep(openStep === index ? null : index);
+  };
+
   return (
-    <div className="how-to-sell">
-      <h1>How to Sell Your Property on LandMarket</h1>
-      <div className="card-container">
-        {steps.map((step, index) => (
-          <Card3D key={index} stepTitle={step.title}>
-            {step.content}
-          </Card3D>
-        ))}
+    <>
+      <Header />
+      <div className="how-to-sell">
+        <h1>How to Sell Your Property on LandMarket</h1>
+        <div className="accordion-container">
+          {steps.map((step, index) => (
+            <div key={index} className="accordion-item">
+              <div className="accordion-title" onClick={() => toggleStep(index)}>
+                <h3>{step.title}</h3>
+                <span className={`accordion-icon ${openStep === index ? 'open' : ''}`}>▼</span>
+              </div>
+              {openStep === index && (
+                <div className="accordion-content">
+                  {step.content}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

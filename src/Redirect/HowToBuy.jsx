@@ -1,9 +1,10 @@
-import React from 'react';
-import Header from '../Component/Layout/Header'; // Import the Header component
-import Card3D from './Card3D';
+import React, { useState } from 'react';
+import Header from '../Component/Layout/Header';
 import './HowToBuy.css';
 
 const HowToBuy = () => {
+  const [openStep, setOpenStep] = useState(null);
+
   const steps = [
     {
       title: "Step 1: Sign In or Register",
@@ -107,15 +108,27 @@ const HowToBuy = () => {
     }
   ];
 
+  const toggleStep = (index) => {
+    setOpenStep(openStep === index ? null : index);
+  };
+
   return (
     <div className="how-to-buy">
-      <Header /> {/* Add the Header component here */}
+      <Header />
       <h1>How to Buy Property on LandMarket</h1>
-      <div className="card-container">
+      <div className="accordion-container">
         {steps.map((step, index) => (
-          <Card3D key={index} stepTitle={step.title}>
-            {step.content}
-          </Card3D>
+          <div key={index} className="accordion-item">
+            <div className="accordion-title" onClick={() => toggleStep(index)}>
+              <h3>{step.title}</h3>
+              <span className={`accordion-icon ${openStep === index ? 'open' : ''}`}>▼</span>
+            </div>
+            {openStep === index && (
+              <div className="accordion-content">
+                {step.content}
+              </div>
+            )}
+          </div>
         ))}
       </div>
     </div>

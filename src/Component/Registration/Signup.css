@@ -1,70 +1,140 @@
+/* Container Styles */
 .signup-container-wide {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background-color: #f0f4f8;
+  min-height: 150vh;
+  background-image: url('s2.jpg'); /* Background image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 20px;
 }
 
 .signup-form-container {
-  width: 70%;
-  max-width: 1200px;
-  height: 20%;
-  max-height: 1000px;
-
-  background-color: #ffffff;
-  padding: 1.5rem; /* Reduced padding */
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.9); /* Transparent background */
+  border-radius: 15px;
+  padding: 40px 50px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* More dramatic shadow */
+  max-width: 800px; /* Wider form for larger screens */
+  width: 100%;
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  transition: transform 0.3s ease;
 }
 
+.signup-form-container:hover {
+  transform: translateY(-8px); /* Lift effect */
+}
+
+/* Title Styling */
 .signup-title {
   text-align: center;
-  margin-bottom: 1.5rem; /* Reduced margin */
-  color: #333;
-  font-size: 2rem;
+  margin-bottom: 25px;
+  font-size: 2.5rem;
+  color: #00008B; /* Dark blue */
   font-weight: bold;
 }
 
-.signup-form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem; /* Reduced gap */
+/* Form Input Styles */
+.form-control {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  margin-bottom: 20px; /* Added space between fields */
+  transition: border-color 0.3s ease;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
+.form-control:focus {
+  border-color: #007BFF; /* Blue border on focus */
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle glow */
 }
 
+/* Button Styles */
 .signup-button {
-  grid-column: span 2;
-  background-color: #007bff;
-  border: none;
+  width: 100%;
+  padding: 15px;
+  background-color: #28a745; /* Green for Sign Up */
   color: white;
-  padding: 0.5rem; /* Reduced padding */
-  font-size: 1.25rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 10px; /* Space above button */
 }
 
 .signup-button:hover {
-  background-color: #0056b3;
+  background-color: #218838; /* Darker green on hover */
+  transform: scale(1.05); /* Lift on hover */
 }
 
-.signin-link {
-  text-align: center;
-  margin-top: 0.5rem; /* Reduced margin */
+.back-to-home-button {
+  padding: 12px 25px;
+  background-color: #007BFF; /* Blue button for back to home */
+  color: white;
+  border: none;
+  border-radius: 8px;
   font-size: 1rem;
-  color: #555;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 20px;
 }
 
-.signin-link a {
-  color: #007bff;
-  text-decoration: none;
+.back-to-home-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05);
+}
+
+/* Success Card Styles */
+.success-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin-top: 30px;
+  animation: fadeIn 0.5s ease-in-out;
+  max-width: 600px;
+}
+
+.success-card h1 {
+  font-size: 2.2rem;
+  color: #28a745;
+  margin-bottom: 15px;
+}
+
+.success-card p {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+/* Text Styling */
+.signup-container-wide .container-text {
+  color: green;
+  text-align: center;
+  font-size: 1.8rem;
   font-weight: bold;
+  margin-bottom: 30px;
 }
 
-.signin-link a:hover {
-  text-decoration: underline;
+.signup-form-container label {
+  font-size: 1rem;
+  color: #333;
+  font-weight: 500;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -16,17 +16,12 @@ const About = () => {
             <h2>About Us</h2>
             <p>
             At LandMarket, we are dedicated to revolutionizing the real estate experience. As your premier platform for buying and selling properties, we offer a comprehensive suite of tools designed to simplify and streamline the process for both buyers and sellers. Our vision is to create a transparent and accessible real estate market where every transaction is straightforward and efficient.
-We provide an extensive range of property listings with detailed profiles, including high-quality images and comprehensive descriptions, ensuring you have all the information you need to make informed decisions. Our commitment to transparency means clear and accurate pricing, with no hidden costs, allowing you to navigate the real estate market with confidence.
+               We provide an extensive range of property listings with detailed profiles, including high-quality images and comprehensive descriptions, ensuring you have all the information you need to make informed decisions. Our commitment to transparency means clear and accurate pricing, with no hidden costs, allowing you to navigate the real estate market with confidence.
             </p>
             <p>
               Our dedicated team is passionate about real estate and committed to helping you make informed
               decisions. We leverage cutting-edge technology to deliver accurate property information and
               market insights, ensuring you get the best value for your investment.
-            </p>
-            <p>
-              At LandMarket, we believe in empowering our users with the resources they need to succeed.
-              From detailed property profiles to expert advice and customer support, we're here to guide you
-              every step of the way. Join us on this journey to find your perfect property or sell with confidence.
             </p>
           </div>
         </section>

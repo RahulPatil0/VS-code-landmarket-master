@@ -2,21 +2,20 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../Layout/Layout';
 import './Signup.css'; // Custom styling
+import axios from 'axios';
 
-const Signup = ({ onRegister }) => {
+const Signup = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
     password: '',
     phoneNumber: '',
-    country: '',
-    state: '',
-    city: '',
-    area: '',
-    zipCode: '',
+    confirmPassword: '',
   });
   const [error, setError] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -24,190 +23,161 @@ const Signup = ({ onRegister }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     try {
-      const registerResponse = await fetch('http://localhost:8080/api/v1/user', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (registerResponse.ok) {
-        const loginResponse = await fetch('http://localhost:8080/api/v1/auth/login', {
-          method: 'POST',
+      const response = await axios.post("http://localhost:8080/api/v1/user/signUp", 
+        formData, 
+        {
           headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: formData.email,
-            password: formData.password,
-          }),
-        });
-
-        if (loginResponse.ok) {
-          const loginData = await loginResponse.json();
-          localStorage.setItem('authToken', loginData.token);
-          localStorage.setItem('userId', loginData.user.id);
-
-          onRegister(true);
-          navigate('/sell-property');
-        } else {
-          const loginErrorData = await loginResponse.json();
-          setError('Error in login: ' + loginErrorData.message);
+            "Content-Type": "application/json",
+          }
         }
+      );
+
+      if (response.status === 200 || response.status === 201) {
+        setShowSuccess(true); // Show the success card and hide form
       } else {
-        const registerErrorData = await registerResponse.json();
-        setError('Error in registration: ' + registerErrorData.message);
+        setError("Error in registration");
       }
     } catch (error) {
-      setError('Network error. Please try again later.');
+      console.error("Error:", error);
+      setError("Error occurred while creating user");
     }
   };
 
   return (
     <Layout>
       <div className="signup-container-wide">
-        <div className="signup-form-container">
-          <h1 className="signup-title">Register</h1>
-          <form onSubmit={handleSubmit} className="signup-form-grid">
-            {/* Form fields */}
-            <div className="form-group">
-              <label htmlFor="firstName">First Name</label>
-              <input
-                type="text"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                className="form-control"
-                id="firstName"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="lastName">Last Name</label>
-              <input
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                className="form-control"
-                id="lastName"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="form-control"
-                id="email"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="phoneNumber">Phone Number</label>
-              <input
-                type="text"
-                name="phoneNumber"
-                value={formData.phoneNumber}
-                onChange={handleChange}
-                className="form-control"
-                id="phoneNumber"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="country">Country</label>
-              <input
-                type="text"
-                name="country"
-                value={formData.country}
-                onChange={handleChange}
-                className="form-control"
-                id="country"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="state">State</label>
-              <input
-                type="text"
-                name="state"
-                value={formData.state}
-                onChange={handleChange}
-                className="form-control"
-                id="state"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="city">City</label>
-              <input
-                type="text"
-                name="city"
-                value={formData.city}
-                onChange={handleChange}
-                className="form-control"
-                id="city"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="area">Area</label>
-              <input
-                type="text"
-                name="area"
-                value={formData.area}
-                onChange={handleChange}
-                className="form-control"
-                id="area"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="zipCode">Zip Code</label>
-              <input
-                type="text"
-                name="zipCode"
-                value={formData.zipCode}
-                onChange={handleChange}
-                className="form-control"
-                id="zipCode"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                className="form-control"
-                id="password"
-                required
-              />
-            </div>
-            {error && (
-              <div className="form-group">
-                <div className="alert alert-danger">{error}</div>
-              </div>
-            )}
-            <button type="submit" className="btn btn-primary mt-2 signup-button">
-              Register
+        {showSuccess ? (
+          <div className="success-card">
+            <h1>Registration Successful!</h1>
+            <p>Welcome to LandMarket! Your account has been successfully created. You can now explore, buy, and sell land with ease.</p>
+            <button className="back-to-home-button" onClick={() => navigate('/')}>
+              Back to Home
             </button>
-          </form>
-          <div className="signin-link">
-            Already have an account? <a href="/signin">Sign In</a>
           </div>
-        </div>
+        ) : (
+          <div className="signup-form-container">
+            <h1 className="signup-title">Register</h1>
+            <form onSubmit={handleSubmit} className="signup-form-grid">
+              {/* Form fields */}
+              <div className="form-group">
+                <label htmlFor="firstName">First Name</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  className="form-control"
+                  id="firstName"
+                  required
+                  placeholder="Enter Firstname"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  className="form-control"
+                  id="lastName"
+                  required
+                  placeholder="Enter Lastname"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="email">E-mail</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="form-control"
+                  id="email"
+                  required
+                  placeholder="Enter your email address"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="phoneNumber">Phone Number</label>
+                <input
+                  type="tel"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (!value.startsWith('+91')) {
+                      handleChange({
+                        target: { name: 'phoneNumber', value: '+91' + value.replace(/^\+91/, '') }
+                      });
+                    } else {
+                      handleChange(e);
+                    }
+                  }}
+                  className="form-control"
+                  id="phoneNumber"
+                  pattern="^\+91[0-9]{10}$"
+                  required
+                  placeholder="Enter your phone number (e.g., +91 9876543210)"
+                  maxLength="13"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={(e) => {
+                    const { value } = e.target;
+                    setFormData({ ...formData, password: value });
+
+                    const hasUpperCase = /[A-Z]/.test(value);
+                    const hasLowerCase = /[a-z]/.test(value);
+                    const hasNumbers = /\d/.test(value);
+                    const hasSpecialChars = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+                    const isValidPassword = hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChars && value.length >= 8;
+
+                    if (!isValidPassword) {
+                      setPasswordError("Password must be at least 8 characters long and include uppercase letters, lowercase letters, numbers, and special characters.");
+                    } else {
+                      setPasswordError("");
+                    }
+                  }}
+                  className="form-control"
+                  id="password"
+                  required
+                  placeholder="Enter your password"
+                />
+                {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
+              </div>
+              <div className="form-group">
+                <label htmlFor="confirmPassword">Confirm Password</label>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  className="form-control"
+                  id="confirmPassword"
+                  required
+                  placeholder="Confirm your password"
+                />
+              </div>
+              <div className="button-container">
+                <button type="submit" className="signup-button">Sign Up</button>
+              </div>
+              {error && <p className="error-message">{error}</p>}
+            </form>
+            <div className="signin-link">
+              Already a user? <a href="/signin">Sign In</a>
+            </div>
+          </div>
+        )}
       </div>
     </Layout>
   );

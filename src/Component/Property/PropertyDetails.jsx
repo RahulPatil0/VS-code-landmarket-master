@@ -6,8 +6,11 @@ import { useLocation } from 'react-router-dom';
 import './PropertyDetails.css';
 import Header from '../Layout/Header';
 import Footer from '../Layout/Footer';
+import axios from 'axios';
 
 const PropertyDetails = () => {
+
+    const token = localStorage.getItem("token");
     const location = useLocation();
     const data = location.state;
 
@@ -44,35 +47,38 @@ const PropertyDetails = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
+        // const property = properties.find((prop) => prop.id === Number(id));
+    
+        // if (!property) return;
+    
+        let buyerId = 1552;
         const payload = {
-            buyerId: 1, // Replace with actual buyerId
-            ownerId: 2, // Replace with actual ownerId
-            ...contactForm,
+          buyerId,
+          ownerId: 1655, // Assuming the property object contains userId as the ownerId
+          ...contactForm,
         };
-
+    
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/user-request/buyer-id/${payload.buyerId}/owner-id/${payload.ownerId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(payload),
-            });
-
-            if (response.ok) {
-                alert('Your request has been sent to the property owner!');
-                setShowContactModal(false);
-            } else {
-                const errorData = await response.json();
-                console.error('Error sending contact request:', errorData);
-                alert('Failed to send your request. Please try again later.');
+          const response = await axios.get('http://localhost:8080/api/v1/contact-owners', payload, {
+            headers: {
+              Authorization: token
             }
-        } catch (error) {
-            console.error('Error sending contact request:', error);
+          });
+    
+          if (response.ok) {
+            alert('Your request has been sent to the property owner!');
+            setShowContactModal(false);
+          } else {
+            const errorData = await response.json();
+            console.error('Error sending contact request:', errorData);
             alert('Failed to send your request. Please try again later.');
+          }
+        } catch (error) {
+          console.error('Error sending contact request:', error);
+          alert('Failed to send your request. Please try again later.');
         }
-    };
+      };
 
     return (
         <>

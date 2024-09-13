@@ -5,6 +5,8 @@
     align-items: center;
     min-height: 100vh;
     background-color: #f0f4f8;
+    background-image: url('s2.jpg'); /* Add your background image path here */
+
   }
   
   .container {

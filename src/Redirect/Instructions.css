@@ -1,73 +1,68 @@
 .instructions-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background-color: #f0f8ff; /* Light blue background */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .instructions-container h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .instructions-section {
-    margin-bottom: 40px;
-  }
-  
-  .instructions-card {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    padding: 20px;
-    position: relative;
-    transition: transform 0.3s ease;
-  }
-  
-  .instructions-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .instructions-card-content {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .instructions-card h3 {
-    display: flex;
-    align-items: center;
-    color: #0073e6;
-    margin-bottom: 10px;
-  }
-  
-  .instructions-card h3 svg {
-    margin-left: 10px;
-  }
-  
-  .instructions-card p,
-  .instructions-card ol,
-  .instructions-card ul {
-    margin-bottom: 10px;
-    line-height: 1.6;
-    color: #555;
-  }
-  
-  .instructions-card ol li,
-  .instructions-card ul li {
-    margin-bottom: 5px;
-  }
-  
-  .instructions-card ol {
-    list-style-type: decimal;
-    padding-left: 20px;
-  }
-  
-  .instructions-card ul {
-    list-style-type: disc;
-    padding-left: 20px;
-  }
-  
+  max-width: 1680px; /* Reduced maximum width for a more compact container */
+  margin: 20px auto; /* Add some space around the container */
+  padding: 15px; /* Reduced padding for a more compact look */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Clean, modern font */
+  background-color: #e8f4f8; /* Light blue background */
+  border-radius: 8px; /* Slightly rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.instructions-container h1 {
+  text-align: center;
+  margin-bottom: 15px; /* Reduced bottom margin */
+  color: #333;
+  font-size: 1.5rem; /* Smaller font size */
+}
+
+.instructions-section {
+  margin-bottom: 20px; /* Reduced margin for a tighter layout */
+}
+
+.instructions-card {
+  background-color: #fff;
+  border-radius: 6px; /* Slightly smaller border radius */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  margin-bottom: 10px; /* Reduced bottom margin */
+  padding: 10px; /* Reduced padding */
+  position: relative;
+  transition: box-shadow 0.3s ease; /* Transition for shadow effect instead of tilt */
+}
+
+.instructions-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increased shadow for hover effect */
+}
+
+.instructions-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.instructions-card h3 {
+  color: #0073e6;
+  margin-bottom: 10px; /* Margin for heading */
+  font-size: 1.1rem; /* Smaller font size for headings */
+}
+
+.instructions-card p,
+.instructions-card ol,
+.instructions-card ul {
+  margin-bottom: 5px; /* Reduced margin for a more compact look */
+  line-height: 1.4; /* Adjusted line-height */
+  color: #444; /* Slightly darker text color */
+}
+
+.instructions-card ol li,
+.instructions-card ul li {
+  margin-bottom: 3px; /* Reduced margin between list items */
+}
+
+.instructions-card ol {
+  list-style-type: decimal;
+  padding-left: 10px; /* Adjusted padding for lists */
+}
+
+.instructions-card ul {
+  list-style-type: disc;
+  padding-left: 10px; /* Adjusted padding for lists */
+}

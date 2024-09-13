@@ -1,21 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { useKeycloak } from '@react-keycloak/web';
 import './Header.css';
 
 const Header = () => {
-  const { keycloak } = useKeycloak();
-
-  const socialMediaSignup = (keycloakData) => {
-    console.log(keycloakData.tokenParsed.email);
-  };
-
-  useEffect(() => {
-    if (keycloak.authenticated) {
-      socialMediaSignup(keycloak);
-    }
-  }, [keycloak.authenticated]);
-
   return (
     <header className="header-navbar" style={{ backgroundColor: 'white' }}>
       <div className="header-container">
@@ -78,6 +65,11 @@ const Header = () => {
             <li className="header-nav-item">
               <Link className="header-nav-link" aria-current="page" to="/buy-property">
                 <span className="header-nav-text" style={{ color: 'black' }}>Buy Property</span>
+              </Link>
+            </li>
+            <li className="header-nav-item">
+              <Link className="header-nav-link" aria-current="page" to="/dashboard">
+                <span className="header-nav-text" style={{ color: 'black' }}>Dashboard</span>
               </Link>
             </li>
           </ul>

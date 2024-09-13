@@ -7,6 +7,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './PropertyDetails.css'; // Custom CSS file
 
 const PropertyDetails = () => {
+  
+  const token = localStorage.getItem("token");
+
   const { id } = useParams();
   const [properties, setProperties] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
@@ -25,7 +28,7 @@ const PropertyDetails = () => {
   });
 
   // Mocking buyerId from a session or similar source
-  const buyerId = 123; // Replace this with the actual buyerId from the authenticated user session
+  const buyerId = 1655; // Replace this with the actual buyerId from the authenticated user session
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -116,12 +119,10 @@ const PropertyDetails = () => {
     };
 
     try {
-      const response = await fetch(`http://localhost:8080/api/v1/user-request/buyer-id/${buyerId}/owner-id/${property.userId}`, {
-        method: 'POST',
+      const response = await axios.get('http://localhost:8080/api/v1/contact-owners', payload, {
         headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
+          Authorization: token
+        }
       });
 
       if (response.ok) {
@@ -192,17 +193,12 @@ const PropertyDetails = () => {
               <p><strong>State:</strong> {property.propertyState}</p>
               <p><strong>Zip Code:</strong> {property.propertyZipCode}</p>
               <p><strong>Status:</strong> {property.propertyStatus}</p>
-              <p><strong>Price:</strong> ${property.propertyPrice ? property.propertyPrice.toLocaleString() : 'N/A'}</p>
-              <div className="d-flex justify-content-between mt-3">
-                <Button className="btn btn-primary" onClick={() => handleBuyProperty(property.id)}>
-                  Buy Property
-                </Button>
+              <p><strong>Price:</strong> ${property.propertyPrice ? property.propertyPrice.toLocaleString() : 'N/A'}</p>    
                 <Button className="btn btn-secondary" onClick={handleContactOwner}>
                   Contact Owner
                 </Button>
               </div>
             </div>
-          </div>
         ))}
       </div>
 
@@ -268,7 +264,7 @@ const PropertyDetails = () => {
             </Form.Group>
             <Form.Group controlId="formDisclaimer">
               <Form.Text className="text-muted">
-                By pressing "Contact Agent", you agree that Zillow Group and its affiliates, and real estate professionals may call/text you about your inquiry, which may involve use of automated means and prerecorded/artificial voices. You don’t need to consent as a condition of buying any property, goods or services. Message/data rates may apply. You also agree to our Terms of Use. Zillow does not endorse any real estate professionals. We may share information about your recent and future site activity with your agent to help them understand what you’re looking for in a home.
+                By pressing "Contact Agent", you agree that LandMarket Group and its affiliates, and LandMarket professionals may call/text you about your inquiry, which may involve use of automated means and prerecorded/artificial voices. You dont need to consent as a condition of buying any property, goods or services. Message/data rates may apply. You also agree to our Terms of Use. Zillow does not endorse any real estate professionals. We may share information about your recent and future site activity with your agent to help them understand what you’re looking for in a home.
               </Form.Text>
             </Form.Group>
             <Button variant="primary" type="submit">

@@ -1,68 +1,174 @@
-.contact-image {
-	width: 750px; /* Full width of the container */
-	height:660px; 
-	padding-left: 80px;
-	
-	/* Maintain aspect ratio */
-	/* max-height: 10000px; Set a maximum height to control the size */
-	object-fit: cover; /* Ensure the image covers the area without distortion */
-	margin-bottom: 2rem; /* Optional: add space below the image */
-  }
-  
-  .contact-page-header {
-	background-color: #f4f4f4;
-	padding: 2rem;
-  }
-  
-  .contact-page-header h1 {
-	font-size: 2rem;
+/* General Styles */
+body {
+	font-family: Arial, sans-serif;
 	margin: 0;
-  }
-  
-  .bg-light {
-	background-color: #f8f9fa;
-  }
-  
-  .py-3 {
-	padding-top: 1rem;
-	padding-bottom: 1rem;
-  }
-  
-  .py-md-5 {
-	padding-top: 3rem;
-	padding-bottom: 3rem;
-  }
-  
-  .contact-form-card {
-	background-color: #fff;
-	border: 1px solid #ddd;
-	border-radius: 0.25rem;
-	box-shadow: 0 0 0.125rem rgba(0, 0, 0, 0.075);
-  }
-  
-  .contact-social-icons {
-	margin-top: 1rem;
-  }
-  
-  .social-icon-list {
-	list-style-type: none;
 	padding: 0;
-	margin: 0;
+	background-color: #f9f9f9;
   }
   
-  .social-icon-list li {
-	margin-right: 1rem;
+  /* Contact Container */
+  .contact-container {
+	display: flex;
+	max-width: 1200px;
+	margin: 2rem auto;
+	padding: 2rem;
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	gap: 2rem;
   }
   
-  .contact-info-section {
-	padding: 1rem 0;
+  /* Left Side (Image and Contact Info) */
+  .contact-left {
+	flex: 1;
+	position: relative;
+	overflow: hidden;
   }
   
-  .contact-info-item {
-	margin-bottom: 1rem;
+  .contact-image {
+	position: relative;
+	height: 100%;
+	width: 100%;
   }
   
-  .google-map-section .map-bind iframe {
+  .contact-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* Ensures the image covers the entire container */
+	border-radius: 8px;
+  }
+  
+  /* Overlay for Contact Info */
+  .contact-info-overlay {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: #fff;
+	text-align: center;
+	background: rgba(0, 0, 0, 0.5); /* Optional: Add a semi-transparent background */
+	padding: 1rem;
+	border-radius: 8px;
+  }
+  
+  /* Right Side (Form) */
+  .contact-right {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+  }
+  
+  .contact-header {
+	text-align: center;
+	margin-bottom: 2rem;
+  }
+  
+  .contact-header h2 {
+	font-size: 2rem;
+	color: #333;
+  }
+  
+  .contact-header p {
+	font-size: 1.1rem;
+	color: #555;
+  }
+  
+  .contact-form {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+  }
+  
+  .form-group {
+	display: flex;
+	flex-direction: column;
+  }
+  
+  .form-group label {
+	font-size: 1rem;
+	margin-bottom: 0.5rem;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+	padding: 0.75rem;
+	font-size: 1rem;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+	outline: none;
+	border-color: #007bff;
+  }
+  
+  .contact-submit-button {
+	background-color: #007bff;
+	color: #fff;
+	padding: 0.75rem;
 	border: none;
+	border-radius: 4px;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: background-color 0.3s;
+  }
+  
+  .contact-submit-button:hover {
+	background-color: #0056b3;
+  }
+  
+  /* Media Queries for Responsiveness */
+  @media (max-width: 768px) {
+	.contact-container {
+	  flex-direction: column;
+	}
+  
+	.contact-left, .contact-right {
+	  width: 100%;
+	}
+  }
+  /* Existing styles */
+
+.property-card {
+	display: flex;
+	flex-direction: column;
+  }
+  
+  .image-container {
+	position: relative;
+	width: 100%;
+	height: 200px; /* Adjust as needed */
+  }
+  
+  .property-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	cursor: pointer;
+	transition: transform 0.3s ease-in-out;
+  }
+  
+  .property-image:hover {
+	transform: scale(1.05);
+  }
+  
+  .image-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+  }
+  
+  .full-size-image {
+	max-width: 90%;
+	max-height: 90%;
+	border-radius: 8px;
   }
   
