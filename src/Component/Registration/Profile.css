@@ -1,0 +1,130 @@
+/* Profile.css */
+
+.profile-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f1f3f4;
+  padding: 20px;
+}
+
+.profile-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.profile-header h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.profile-pic img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-details {
+  margin-top: 20px;
+}
+
+.profile-details h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2b2b2b;
+}
+
+.profile-details p {
+  font-size: 16px;
+  color: #555;
+  margin: 10px 0;
+}
+
+.profile-details strong {
+  font-weight: 500;
+  color: #333;
+}
+
+.edit-btn, .profile-save-btn, .cancel-btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+  background-color: #007bff;
+  color: #fff;
+  margin-top: 20px;
+}
+
+.edit-btn:hover {
+  background-color: #0056b3;
+}
+
+.profile-save-btn {
+  background-color: #28a745;
+  color: #fff;
+  margin-right: 10px;
+}
+
+.profile-save-btn:hover {
+  background-color: #218838;
+}
+
+.cancel-btn {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.cancel-btn:hover {
+  background-color: #c82333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+.form-actions {
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .profile-card {
+    padding: 20px;
+  }
+  
+  .form-group input {
+    padding: 8px;
+  }
+}

@@ -8,7 +8,6 @@ import Signup from './Component/Registration/Signup';
 import Signin from './Component/Registration/Signin';
 import SellProperty from './Component/SellProperty';
 import BuyProperty from './Component/BuyProperty';
-import PostHomeForSale from './Component/PostHomeForSale';
 import HelpCenter from './Component/HelpCenter';
 import HowToSell from './Redirect/HowToSell';
 import HowToBuy from './Redirect/HowToBuy';
@@ -20,8 +19,19 @@ import LegalAgreements from './Redirect/LegalAgreements';
 import PropertiesPage from './Redirect/PropertiesPage.jsx';
 import FilteredPropertiesPage from './Redirect/FilteredPropertiesPage';
 import Order from './Component/Order.jsx';
-import Dashboard from './Component/Registration/Dashboard.jsx';
 import PropertyDetails from './Component/Property/PropertyDetails.jsx';
+import AdminDashboard from './Component/Admin/AdminDashboard.jsx';
+import Feedback from './Component/Admin/Feedback.jsx';
+import Users from './Component/Admin/Users.jsx';
+import Report from './Component/Admin/Report.jsx';
+import Properties from './Component/Admin/Properties.jsx';
+import AdminPrivateRoute from './Context/AdminRoute.jsx';
+import Prfile from './Component/Registration/Profile.jsx'
+import Profile from './Component/Registration/Profile.jsx';
+// import Feedback from 'react-bootstrap/esm/Feedback.js';
+
+
+
 
 const App = () => {
   useEffect(() => {
@@ -46,7 +56,7 @@ const App = () => {
       <Route path="/signup" element={<Signup onRegister={handleLogin} />} />
       <Route path="/signin" element={<Signin onLogin={handleLogin} />} />
       <Route path="/livenews" element={<LiveNews />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path='/profile' element={<Profile />} />
 
       <Route
         path="/sell-property"
@@ -54,7 +64,6 @@ const App = () => {
       />
       <Route path="/buy-property" element={<BuyProperty />} />
       <Route path="/property/:id" element={<PropertyDetails />} />
-      <Route path="/post-home-for-sale" element={<PostHomeForSale />} />
       <Route path="/help-center" element={<HelpCenter />} />
       <Route path="*" element={<Navigate to="/" />} />
       <Route path="/how-to-sell" element={<HowToSell />} />
@@ -66,6 +75,16 @@ const App = () => {
       <Route path="/how-to-buy" element={<HowToBuy />} />
       <Route path="/chatbox" element={<Chatbox />} />
       <Route path="/order" element={<Order />} />
+      <Route path='/admin' element={<AdminPrivateRoute/>}>
+        <Route index element={<Report />}/>
+        <Route path='feedback' element={<Feedback/>}/>
+        <Route path='users' element={<Users/>}/>
+        <Route path='properties' element={<Properties/>}/>
+
+
+
+      </Route>
+
     </Routes>
   );
 };

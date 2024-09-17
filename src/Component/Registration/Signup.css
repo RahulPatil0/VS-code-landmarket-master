@@ -138,3 +138,54 @@
     transform: translateY(0);
   }
 }
+/* OTP Field Styles */
+.verify-otp-button {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #007BFF; /* Blue for Verify OTP */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.verify-otp-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05);
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+}
+/* OTP Button Styles */
+.otp-button, .verify-otp-button {
+  width: 20%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-left: 200px ;
+}
+
+.verify-otp-button {
+  background-color: #28a745;
+}
+
+.otp-button:hover, .verify-otp-button:hover {
+  background-color: #0056b3;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin-top: 10px;
+}
+
+

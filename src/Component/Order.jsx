@@ -1,26 +1,27 @@
 import Razorpay from 'razorpay';
-import React from 'react'
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const Order = () => {
+    const [order,setOrder]=useState();
     async function createOrder() {
         console.log("order creation started");
-        const response = await fetch("http://localhost:8080/api/v1/create-order", {
-            method: 'POST',
+        const token = localStorage.getItem("token");
+        const response = await axios.post("http://localhost:8080/api/v1/order/create-order",{
+            name: "raj",
+            email: "rajnk@gmail.com",
+            phno: "8660202938",
+            course: "Java",
+            amount: 10000,
+            currency: 'INR'
+        },{
             headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: "raj",
-                email: "rajnk@gmail.com",
-                phno: "8660202938",
-                course: "Java",
-                amount: 10000,
-                currency: 'INR'
-            })
+            Authorization: token
+          }
         });
+        setOrder(response.data);
 
-
-        const order=await response.json();
+        const order=await response.data;
         console.log("order creation completed", order);
         if(order){
             proceedOrder(order);
@@ -30,14 +31,14 @@ const Order = () => {
     const proceedOrder = (order) => {
         const options={
             //pass order details
-            "key_id":"rzp_test_t3ROS51DwZEOli",
+            "key_id":"rzp_test_LForrv4px5KNlV",
             "amount":order.amount,
             "currency":"INR",
             "name":"payment_demo",
             "description":"Course Payment",
             "order_id":order.razorPayOrderID,
             "receipt":order.email,
-            "callback_url":"http://localhost:8080/handle-payment-callback",
+            "callback_url":"http://localhost:8080/order/handle-payment-callback",
             "prefill":{
                 "name":order.name,
                 "email":order.email,
@@ -52,7 +53,7 @@ const Order = () => {
 
         const rzp1=new window.Razorpay(options);
         rzp1.open();
-        // e.preventDefault();
+        e.preventDefault();
     }
   return (
     <div>
@@ -61,4 +62,4 @@ const Order = () => {
   )
 }
 
-export default Order
+export default Order;

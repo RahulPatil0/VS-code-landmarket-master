@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Layout from '../Layout/Layout';
 import './Signin.css'; // Add your custom styles
+import { useAuth } from '../../Context/Auth';
+import { useGoogleLogin } from '@react-oauth/google';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Signin = () => {
   const [email, setEmail] = useState('');
@@ -10,6 +13,7 @@ const Signin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const [auth,updateAuth]=useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -17,8 +21,24 @@ const Signin = () => {
       const response = await axios.post('http://localhost:8080/api/v1/user/signIn', { email, password });
       if (response.status === 200) {
         console.log(response);
-        localStorage.setItem('token', response.headers["access_token"]);
-        navigate('/dashboard');
+       window.alert("Logged in Successfully.");
+        const token = response.headers["access_token"];
+        localStorage.setItem("token", token);
+              // Update auth context state
+        updateAuth({
+          token: token,
+          username: "", 
+          role: "", 
+        });
+        setTimeout(() => {
+          setEmail(null);
+          setPassword(null);
+
+          navigate("/");
+        }, 3000);
+      } else if (response.status === 401) {
+       window.alert("Enter valid Credentials...!");
+
       } else {
         setError('Login failed. Please try again.');
       }
@@ -27,30 +47,52 @@ const Signin = () => {
       setError('Invalid email or password. Please try again.');
     }
   };
-  const handleGoogleSignIn = () => {
-    try {
-        const signInURL = "https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fapi%2Fv1%2Fuser%2FsignInWithGoogle&response_type=code&client_id=644460565611-35m3nstu3qapb88jh7msiklb4vmsl6n8.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&access_type=offline";
-        const signInWindow = window.open(
-            signInURL,
-            "google login",
-            "toolbar=no, menubar=no, width=700, height=700, top=100, left=300"
-        );
   
-        if (signInWindow) {
-            const interval = setInterval(() => {
-                if (signInWindow.closed) {
-                    clearInterval(interval);
-                    navigate('/about');
-                }
-            }, 1000);
-        }
-  
-    } catch (error) {
-        console.error('Error during Google sign-in:', error);
-        window.alert('An error occurred during Google sign-in. Please try again.');
-      }
-    };
+  const googleLogin = useGoogleLogin({
+    onSuccess: (codeResponse) => signWithGoogle(codeResponse),
+    onError: (error) => toast.error("Google login failed. Please try again."),
+  });
 
+  const signWithGoogle = async (codeResponse) => {
+    try {
+      const requestBody = {
+        accessToken: codeResponse?.access_token,
+      };
+      const response = await axios
+        .post(`http://localhost:8081/api/v1/user/signInWithGoogle`, requestBody)
+        .catch((err) => {
+          console.error(err);
+          toast.error("An error occurred during login. Please try again.");
+        });
+
+      if (response?.status === 200) {
+        console.log(response);
+        toast.success("Logged in Successfully.", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+        const token = response.headers["access_token"];
+        localStorage.setItem("token", token);
+        // Update auth context state
+        updateAuth({
+          token: token,
+          username: "",
+          role: "",
+        });
+        setTimeout(() => {
+          setUser(null);
+          navigate("/");
+        }, 3000);
+      } else if (response?.status === 401) {
+        toast.warning("Enter valid Credentials...!", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      }
+    } catch (error) {
+      toast.error("An error occurred during login. Please try again.");
+    }
+  };
   const navigateToSignup = () => {
     navigate('/signup');
   };
@@ -98,7 +140,7 @@ const Signin = () => {
               </div>
               <div className="text-center mt-4">
                 <p>Or continue with</p>
-                <button className="btn btn-outline-danger d-flex align-items-center justify-content-center w-100" onClick={handleGoogleSignIn}>
+                <button className="btn btn-outline-danger d-flex align-items-center justify-content-center w-100" onClick={() => googleLogin()}>
                   <img src="/ggl.svg" className="google-logo me-2" width={20} alt="Google Logo" />
                   Sign In with Google
                 </button>
