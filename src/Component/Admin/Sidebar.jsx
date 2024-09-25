@@ -48,7 +48,7 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
         </li>
 
         <li className="sidebar-list-item">
-          <Link to="/admin/properties">
+          <Link to="/properties">
             <BsFillArchiveFill className="icon" /> Properties
           </Link>
         </li>

@@ -47,9 +47,15 @@ const LiveNews = () => {
 
   if (loading) {
     return (
-      <div className="loading-container">
-        <div className="spinner"></div>
-        <p>Loading...</p>
+      <div className="loading-animation vh-100">
+        <div className="hand-animation">
+          <div className="finger"></div>
+          <div className="finger"></div>
+          <div className="finger"></div>
+          <div className="finger"></div>
+          <div className="palm"></div>
+          <div className="thumb"></div>
+        </div>
       </div>
     );
   }

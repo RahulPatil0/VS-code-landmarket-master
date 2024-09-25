@@ -1,0 +1,98 @@
+.properties-container {
+    max-width: 1200px; /* Maximum width for larger screens */
+    margin: auto; /* Center the container */
+    padding: 15px; /* Add padding to the container */
+  }
+  
+  .properties-title {
+    font-size: 2rem; /* Title size */
+    color: #333; /* Dark text for better readability */
+  }
+  
+  .properties-row {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping of property cards */
+    justify-content: space-between; /* Space between cards */
+  }
+  
+  .btn-danger {
+    background-color: #dc3545; /* Bootstrap red color */
+    color: white;
+  }
+  
+  .property-col {
+    flex: 0 0 24%; /* 4 cards per row */
+    margin-bottom: 20px; /* Space below each card */
+    box-sizing: border-box; /* Include padding and border in element's total width */
+  }
+  
+  .property-card {
+    background-color: #fff; /* White background for cards */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Prevents overlapping of images and text */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth hover effect */
+  }
+  
+  .property-card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+  }
+  
+  .property-images {
+    height: 150px; /* Fixed height for images */
+    display: flex; /* Flexbox for image alignment */
+    overflow: hidden; /* Hide overflow */
+  }
+  
+  .property-image {
+    width: 100%; /* Make images responsive */
+    height: 100%; /* Fill container */
+    object-fit: cover; /* Maintain aspect ratio */
+    cursor: pointer; /* Change cursor to pointer on hover */
+  }
+  
+  .property-image-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px; /* Same height as the images */
+    background-color: #f0f0f0; /* Light grey background */
+    color: #aaa; /* Placeholder text color */
+  }
+  
+  .property-header {
+    padding: 10px; /* Padding around the header */
+  }
+  
+  .property-title {
+    font-size: 1.25rem; /* Title size */
+    margin: 0; /* Remove default margin */
+    color: #333; /* Dark text for better readability */
+  }
+  
+  .property-body {
+    padding: 15px; /* Padding around the body */
+    background-color: #f9f9f9; /* Light background for body */
+  }
+  
+  .property-body p {
+    margin: 5px 0; /* Consistent margin for paragraphs */
+  }
+  
+  .text-center {
+    text-align: center; /* Center text */
+  }
+  
+  .text-danger {
+    color: #dc3545; /* Bootstrap danger color */
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .property-col {
+      flex: 0 0 100%; /* Stack cards in single column */
+      max-width: 100%; /* Full width on smaller screens */
+    }
+  }
+  

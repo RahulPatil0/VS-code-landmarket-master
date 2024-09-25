@@ -1,68 +1,157 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Pie } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+} from 'chart.js';
+
+import './Report.css';
+
+// Register necessary components
+ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale);
 
 const Report = () => {
-  const barChartRef = useRef(null);
-  const pieChartRef = useRef(null);
+  const [properties, setProperties] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch data function
+  const fetchData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      // Fetch properties
+      const propertiesResponse = await axios.get('http://localhost:8080/api/v1/property', {
+        headers: { Authorization: token },
+      });
+      setProperties(propertiesResponse.data);
+
+      // Fetch users
+      const usersResponse = await axios.get('http://localhost:8080/api/v1/user', {
+        headers: { Authorization: token },
+      });
+      setUsers(usersResponse.data);
+    } catch (error) {
+      setError('Error fetching report data. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const barChart = barChartRef.current.getContext('2d');
-    const pieChart = pieChartRef.current.getContext('2d');
+    fetchData(); // Initial fetch
 
-    // Example data
-    const data = {
-      totalProperties: 200,
-      soldProperties: 150,
-    };
+    const intervalId = setInterval(() => {
+      fetchData(); // Fetch data every 10 seconds (or your preferred interval)
+    }, 10000);
 
-    // Draw Bar Chart
-    barChart.fillStyle = 'white';
-    barChart.fillRect(0, 0, 400, 200);
-    
-    barChart.fillStyle = 'rgba(75, 192, 192, 0.2)';
-    barChart.fillRect(50, 150 - (data.totalProperties / 2), 100, data.totalProperties / 2);
-    
-    barChart.fillStyle = 'rgba(255, 99, 132, 0.2)';
-    barChart.fillRect(200, 150 - (data.soldProperties / 2), 100, data.soldProperties / 2);
-    
-    barChart.fillStyle = 'black';
-    barChart.font = '16px Arial';
-    barChart.fillText('Total Properties', 50, 180);
-    barChart.fillText('Sold Properties', 200, 180);
-
-    // Draw Pie Chart
-    const total = data.totalProperties;
-    const sold = data.soldProperties;
-    const available = total - sold;
-
-    const drawPieSegment = (ctx, startAngle, endAngle, color) => {
-      ctx.beginPath();
-      ctx.moveTo(150, 100);
-      ctx.arc(150, 100, 100, startAngle, endAngle);
-      ctx.closePath();
-      ctx.fillStyle = color;
-      ctx.fill();
-    };
-
-    let startAngle = 0;
-    let endAngle = (2 * Math.PI * sold) / total;
-    drawPieSegment(pieChart, startAngle, endAngle, 'rgba(54, 162, 235, 0.2)');
-    
-    startAngle = endAngle;
-    endAngle += (2 * Math.PI * available) / total;
-    drawPieSegment(pieChart, startAngle, endAngle, 'rgba(255, 206, 86, 0.2)');
-
-    pieChart.fillStyle = 'black';
-    pieChart.font = '16px Arial';
-    pieChart.fillText('Sold', 200, 50);
-    pieChart.fillText('Available', 200, 80);
+    return () => clearInterval(intervalId); // Cleanup on component unmount
   }, []);
 
+  if (loading) return <div className="text-center mt-4">Loading report...</div>;
+  if (error) return <div className="text-center text-danger mt-4">{error}</div>;
+
+  // Data for pie chart
+  const propertyStatusCount = properties.reduce((acc, property) => {
+    acc[property.propertyStatus] = (acc[property.propertyStatus] || 0) + 1;
+    return acc;
+  }, {});
+
+  const userRoleCount = users.reduce((acc, user) => {
+    acc[user.role] = (acc[user.role] || 0) + 1;
+    return acc;
+  }, {});
+
+  // Updated colors for better visibility
+  const propertyColors = ['#4BC0C0', '#FFCE56', '#36A2EB', '#FF9F40', '#9966FF', '#FF6384'];
+  const userColors = ['#FFA07A', '#20B2AA', '#FFD700', '#B0E0E6', '#9370DB', '#FF6347'];
+
+  const propertyData = {
+    labels: Object.keys(propertyStatusCount),
+    datasets: [{
+      data: Object.values(propertyStatusCount),
+      backgroundColor: propertyColors,
+      hoverBackgroundColor: propertyColors
+    }]
+  };
+
+  const userData = {
+    labels: Object.keys(userRoleCount),
+    datasets: [{
+      data: Object.values(userRoleCount),
+      backgroundColor: userColors,
+      hoverBackgroundColor: userColors
+    }]
+  };
+
   return (
-    <div>
-      <h1>Welcome to the admin Report Page</h1>
-      <div style={{ width: '600px', margin: 'auto' }}>
-        <canvas ref={barChartRef} width="400" height="200" />
-        <canvas ref={pieChartRef} width="400" height="200" />
+    <div className="report-container mt-4">
+      <h1 className="report-title text-center mb-4">Report Summary</h1>
+
+      <div className="summary-section d-flex justify-content-around">
+        <div className="properties-summary">
+          <h2>Properties Summary</h2>
+          <Pie data={propertyData} options={{
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false, // Hide built-in legend
+              },
+              tooltip: {
+                callbacks: {
+                  label: (tooltipItem) => `${tooltipItem.label}: ${tooltipItem.raw}`
+                }
+              }
+            }
+          }} height={300} />
+          
+          {/* Custom Legend for Property Status */}
+          <div className="custom-legend">
+            <h3>Property Status Legend:</h3>
+            {Object.keys(propertyStatusCount).map((status, index) => (
+              <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{ width: 20, height: 20, backgroundColor: propertyColors[index], marginRight: 10 }}></div>
+                <span>{status}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="users-summary">
+          <h2>Users Summary</h2>
+          <Pie data={userData} options={{
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false, // Hide built-in legend
+              },
+              tooltip: {
+                callbacks: {
+                  label: (tooltipItem) => `${tooltipItem.label}: ${tooltipItem.raw}`
+                }
+              }
+            }
+          }} height={300} />
+          
+          {/* Custom Legend for User Roles */}
+          <div className="custom-legend">
+            <h3>User Roles Legend:</h3>
+            {Object.keys(userRoleCount).map((role, index) => (
+              <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{ width: 20, height: 20, backgroundColor: userColors[index], marginRight: 10 }}></div>
+                <span>{role}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

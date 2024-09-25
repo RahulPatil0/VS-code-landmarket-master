@@ -26,9 +26,9 @@ const AuthProvider = ({ children }) => {
 
         // console.log(data);
         if (data && !isTokenExpired(data.exp)) {
-          const { email, username, authorities } = data;
+          const {userId, email, username, authorities } = data;
           return {
-            userId: email || null,
+            userId: userId || null,
             email : email || null,
             token: token,
             username: username || null,
@@ -42,19 +42,6 @@ const AuthProvider = ({ children }) => {
       return null;
     }
   });
-
-  useEffect(() =>{
-    const fetchUser = async () =>{
-      const response = await axios.get(`http://localhost:8080/api/v1/user/${auth?.userId}`,{
-        headers : {
-          Authorization : auth?.token
-        }
-      });
-      const data = response.data;
-      setAuth({ ... auth, userId : data.id});
-    }
-    fetchUser();
-  },[])
 
   const updateAuth = (newAuth) => {
     if (newAuth && newAuth.token) {

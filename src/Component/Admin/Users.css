@@ -1,0 +1,83 @@
+/* Container styling */
+.container-box {
+    background-color: #f8f9fa; /* Light gray background */
+    border-radius: 12px; /* Rounded corners */
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* More subtle shadow */
+    max-height: 80vh; /* Limit container's height to 80% of the viewport */
+    overflow-y: auto; /* Enable vertical scrolling */
+    width: 100%;
+  }
+  
+  /* Table styling */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th, 
+  .table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .table th {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white; /* White text in header */
+    font-weight: bold;
+    position: sticky; /* Sticky header when scrolling */
+    top: 0;
+    z-index: 10;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #f1f3f5; /* Light background color on hover */
+    transition: background-color 0.2s ease-in-out; /* Smooth hover transition */
+  }
+  
+  .table td {
+    background-color: #ffffff;
+  }
+  
+  /* Center text for "No users found" */
+  .text-center {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Button styling */
+  .btn {
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Icon button for delete action */
+  .icon-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #dc3545;
+    font-size: 18px;
+    transition: color 0.3s ease;
+  }
+  
+  .icon-btn:hover {
+    color: #c82333; /* Darker red on hover */
+  }
+  
+  .icon-btn i {
+    font-size: 1.2rem; /* Adjust icon size */
+    vertical-align: middle; /* Align icon with text */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .table {
+      font-size: 0.9rem; /* Adjust table font size for smaller screens */
+    }
+  
+    .container-box {
+      padding: 10px; /* Adjust padding on small screens */
+    }
+  }
+  

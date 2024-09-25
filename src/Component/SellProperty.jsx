@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +9,7 @@ import { storage } from '../Firebase';
 import { useAuth } from '../Context/Auth';
 
 const SellProperty = () => {
-  const [auth] = useAuth();
+  const [auth] = useAuth(); // Ensure this is providing the correct auth data
   const [formData, setFormData] = useState({
     propertyAddress: '',
     propertyCity: '',
@@ -23,9 +24,9 @@ const SellProperty = () => {
   const [info, setInfo] = useState('');
   const [indicator, setIndicator] = useState('');
   const [imagePreviews, setImagePreviews] = useState([]);
-  const [showSuccess, setShowSuccess] = useState(false); // New state for success message
+  const [showSuccess, setShowSuccess] = useState(false);
 
-  const navigate = useNavigate(); // For navigation
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,7 +40,6 @@ const SellProperty = () => {
       propertyZipCode: value
     }));
 
-    // ZIP code validation for 6 digits
     const codelength = /^\d{6}$/;
     if (value.match(codelength)) {
       axios.get(`https://api.postalpincode.in/pincode/${value}`)
@@ -92,11 +92,8 @@ const SellProperty = () => {
 
     const storageRef = ref(storage, `properties/${file.name}`);
     try {
-      // Upload the file to Firebase Storage
       await uploadBytes(storageRef, file);
-      // Get the download URL
       const downloadURL = await getDownloadURL(storageRef);
-      console.log("File available at", downloadURL);
       return downloadURL;
     } catch (error) {
       console.error("Error uploading file:", error);
@@ -106,23 +103,30 @@ const SellProperty = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Ensure userId is present
+    if (!auth?.userId) {
+      alert('User not authenticated. Please log in.');
+      navigate('/login'); // Redirect to login page if not authenticated
+      return;
+    }
+
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch('http://localhost:8080/api/v1/property/user-id/'+auth?.userId, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: token },
-        body: JSON.stringify(formData),
+      const response = await axios.post(`http://localhost:8080/api/v1/property/user-id/${auth.userId}`,formData, {
+        headers: {
+          Authorization : auth?.token 
+        }
       });
 
-      if (response.ok) {
+      if (response) {
         setShowSuccess(true);
         setTimeout(() => navigate('/properties'), 2000); // Redirect to properties page after 2 seconds
       } else {
-        const errorData = await response.json();
+        const errorData = await response.data;
         alert(`Error in registration: ${errorData.message || 'Unknown error occurred'}`);
       }
     } catch (error) {
       alert('Network error. Please try again later.' + error);
+      console.log(error);
     }
   };
 

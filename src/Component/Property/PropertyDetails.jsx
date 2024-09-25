@@ -7,9 +7,11 @@ import Header from '../Layout/Header';
 import Footer from '../Layout/Footer';
 import axios from 'axios';
 import './PropertyDetails.css';
+import { useAuth } from '../../Context/Auth';
 
 const PropertyDetails = () => {
     const token = localStorage.getItem("token");
+    const [auth] = useAuth();
     const location = useLocation();
     const navigate = useNavigate(); // For navigation
     const data = location.state;
@@ -23,8 +25,9 @@ const PropertyDetails = () => {
         financingInfo: false,
     });
 
-    const { id = '', propertyAddress = '', propertyCity = '', propertyPrice = '', propertyStatus = '', propertyZipCode = '', propertyState = '' } = data;
+    const { id = '', propertyAddress = '', propertyCity = '', propertyPrice = '', propertyStatus = '', propertyZipCode = '', propertyState = '', userId='' } = data;
 
+    console.log(userId);
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setContactForm((prevForm) => ({
@@ -42,12 +45,10 @@ const PropertyDetails = () => {
     };
 
     const handleBuyProperty = async () => {
-        // Create order and then initiate payment with Razorpay
         try {
-            const response = await axios.post("http://localhost:8080/api/v1/order/create-order", {
-                name: contactForm.name || "John Doe",
-                email: contactForm.email || "johndoe@gmail.com",
-                phno: contactForm.phone || "1234567890",
+            const response = await axios.post(`http://localhost:8080/api/v1/order/create-order/property/${id}`, {
+                name: auth?.username || "User name",
+                email: auth?.email || "user@gmail.com",
                 course: "Property Purchase",
                 amount: propertyPrice,
                 currency: 'INR'
@@ -56,16 +57,15 @@ const PropertyDetails = () => {
                     Authorization: token
                 }
             });
-
+    
             const order = response.data;
             proceedOrder(order);
         } catch (error) {
-            console.error("Error creating order", error);
+            console.error("Error creating order", error.response ? error.response.data : error.message);
             alert("Failed to create order. Please try again.");
         }
     };
-
-    const proceedOrder = (order) => {
+        const proceedOrder = (order) => {
         const options = {
             "key_id": "rzp_test_LForrv4px5KNlV",  // Replace with your Razorpay key_id
             "amount": order.amount,  // Amount in paise
@@ -90,21 +90,22 @@ const PropertyDetails = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let buyerId = 1552;
+        // let buyerId = 1552;
         const payload = {
-            buyerId,
-            ownerId: 1655,
+            buyerId : auth?.userId,
+            ownerId: userId,
+            emailId : contactForm.email,
             ...contactForm,
         };
 
         try {
-            const response = await axios.get('http://localhost:8080/api/v1/contact-owners', payload, {
+            const response = await axios.post('http://localhost:8080/api/v1/contact-owners', payload, {
                 headers: {
                     Authorization: token
                 }
             });
 
-            if (response.ok) {
+            if (response) {
                 alert('Your request has been sent to the property owner!');
                 setShowContactModal(false);
             } else {
@@ -237,3 +238,4 @@ const PropertyDetails = () => {
 };
 
 export default React.memo(PropertyDetails);
+
