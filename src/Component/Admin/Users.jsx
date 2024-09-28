@@ -1,62 +1,3 @@
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-// import { useAuth } from '../../Context/Auth';
-// // import './Users.css'; // Custom styles if needed
-
-// const Users = () => {
-//   const [userCount, setUserCount] = useState(0);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState(null);
-//   const[auth]=useAuth();
-
-//   useEffect(() => {
-//     const fetchUserCount = async () => {
-//       try {
-//         const token=localStorage.getItem("token");
-//         // Replace with your API endpoint for getting user count
-//         const response = await axios.get('http://localhost:8080/api/v1/user',{
-//           headers : {
-//             Authorization : auth?.token
-//           }
-//         });
-        
-//         if (response.status === 200) {
-//           console.log(response.data);
-//           setUserCount(response.data.length); // Adjust based on your API response
-//         } else {
-//           setError('Failed to fetch user count.');
-//         }
-//       } catch (error) {
-//         setError('Error fetching user count.');
-//         console.error(error);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchUserCount();
-//   }, []);
-
-//   if (loading) {
-//     return <div className="users-container">Loading...</div>;
-//   }
-
-//   if (error) {
-//     return <div className="users-container">Error: {error}</div>;
-//   }
-
-//   return (
-//     <div className="users-container">
-//       <h1>Registered Users</h1>
-//       <div className="users-count">
-//         <p>Total Registered Users:</p>
-//         <h2>{userCount}</h2>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Users;
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../Context/Auth';
@@ -101,16 +42,22 @@ const Users = () => {
     try {
       const token = localStorage.getItem("token") || auth?.token; // Get the token
       if (window.confirm('Are you sure you want to delete this user?')) {
-        await axios.delete(`http://localhost:8080/api/v1/user/${userId}`, {
+        const response = await axios.delete(`http://localhost:8080/api/v1/user/id/${userId}`, {
           headers: {
             Authorization: token, // Add token as a Bearer token in the header
           },
         });
-        alert('User deleted successfully');
-        fetchUsers(); // Refresh the users list after deletion
+
+        if (response.status === 200) {
+          alert('User deleted successfully');
+          fetchUsers(); // Refresh the users list after deletion
+        } else {
+          alert('Failed to delete user: ' + response.data.message);
+        }
       }
     } catch (error) {
       console.error('Error deleting user:', error);
+      alert('An error occurred while deleting the user.');
     }
   };
 
@@ -123,7 +70,8 @@ const Users = () => {
   }
 
   return (
-    <div className="container my-5 container-box">
+    <div className="users-table-container">
+      <h1 className="text-center">User Management</h1> {/* Header Title */}
       <div className="table-responsive">
         <table className="table table-striped">
           <thead>

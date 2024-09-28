@@ -12,6 +12,7 @@ const Properties = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentPropertyImages, setCurrentPropertyImages] = useState([]);
 
+  // Fetch properties when component mounts
   useEffect(() => {
     const fetchProperties = async () => {
       try {
@@ -34,28 +35,33 @@ const Properties = () => {
     fetchProperties();
   }, []);
 
+  // Open image modal
   const openModal = (images, index) => {
     setCurrentPropertyImages(images);
     setCurrentImageIndex(index);
     setIsModalOpen(true);
   };
 
+  // Close image modal
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
+  // Navigate to the next image in the modal
   const nextImage = () => {
     if (currentImageIndex < currentPropertyImages.length - 1) {
       setCurrentImageIndex(currentImageIndex + 1);
     }
   };
 
+  // Navigate to the previous image in the modal
   const prevImage = () => {
     if (currentImageIndex > 0) {
       setCurrentImageIndex(currentImageIndex - 1);
     }
   };
 
+  // Delete a property by its ID
   const deleteProperty = async (propertyId) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this property?");
     if (!confirmDelete) return;

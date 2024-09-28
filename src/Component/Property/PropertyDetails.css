@@ -84,3 +84,16 @@
 .text-muted {
   color: #6c757d; /* Muted text color */
 }
+.sealed-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  transform: rotate(-45deg);
+  transform-origin: top right;
+  font-size: 16px;
+  z-index: 1;
+}

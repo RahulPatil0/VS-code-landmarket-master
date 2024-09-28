@@ -1,22 +1,25 @@
+
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useLocation, useNavigate } from 'react-router-dom'; // Add useNavigate to redirect
+import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../Layout/Header';
 import Footer from '../Layout/Footer';
 import axios from 'axios';
-import './PropertyDetails.css';
 import { useAuth } from '../../Context/Auth';
+import './PropertyDetails.css';
 
 const PropertyDetails = () => {
     const token = localStorage.getItem("token");
     const [auth] = useAuth();
     const location = useLocation();
-    const navigate = useNavigate(); // For navigation
+    const navigate = useNavigate();
     const data = location.state;
 
     const [showContactModal, setShowContactModal] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [isPropertyAvailable, setIsPropertyAvailable] = useState(true);
     const [contactForm, setContactForm] = useState({
         name: '',
         phone: '',
@@ -25,9 +28,8 @@ const PropertyDetails = () => {
         financingInfo: false,
     });
 
-    const { id = '', propertyAddress = '', propertyCity = '', propertyPrice = '', propertyStatus = '', propertyZipCode = '', propertyState = '', userId='' } = data;
+    const { id = '', propertyAddress = '', propertyCity = '', propertyPrice = '', propertyStatus = '', propertyZipCode = '', propertyState = '', userId = '' } = data;
 
-    console.log(userId);
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setContactForm((prevForm) => ({
@@ -57,7 +59,7 @@ const PropertyDetails = () => {
                     Authorization: token
                 }
             });
-    
+
             const order = response.data;
             proceedOrder(order);
         } catch (error) {
@@ -65,15 +67,15 @@ const PropertyDetails = () => {
             alert("Failed to create order. Please try again.");
         }
     };
-        const proceedOrder = (order) => {
+
+    const proceedOrder = (order) => {
         const options = {
-            "key_id": "rzp_test_LForrv4px5KNlV",  // Replace with your Razorpay key_id
-            "amount": order.amount,  // Amount in paise
+            "key_id": "rzp_test_LForrv4px5KNlV",
+            "amount": order.amount,
             "currency": "INR",
             "name": "LandMarket Payment",
             "description": "Payment for property purchase",
             "order_id": order.razorPayOrderID,
-            "callback_url": "http://localhost:8080/order/handle-payment-callback",
             "prefill": {
                 "name": order.name,
                 "email": order.email,
@@ -81,20 +83,38 @@ const PropertyDetails = () => {
             },
             "theme": {
                 "color": "#3399cc"
+            },
+            handler: async function (res) {
+                setShowSuccessModal(true);
+
+                // Update property status to "Not Available" after payment
+                await axios.post(`http://localhost:8080/api/v1/order/handle-payment-callback/property/${id}/${res.razorpay_order_id}`, 
+                { status: "Not Available" },
+                {
+                    headers: {
+                        Authorization: token
+                    }
+                });
+
+                // Update state to hide the property
+                setIsPropertyAvailable(false);
             }
         };
 
         const rzp1 = new window.Razorpay(options);
         rzp1.open();
+
+        rzp1.on('payment.failure', function (response) {
+            alert("Payment failed. Please try again.");
+        });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // let buyerId = 1552;
         const payload = {
-            buyerId : auth?.userId,
+            buyerId: auth?.userId,
             ownerId: userId,
-            emailId : contactForm.email,
+            emailId: contactForm.email,
             ...contactForm,
         };
 
@@ -116,7 +136,6 @@ const PropertyDetails = () => {
         }
     };
 
-    // Navigate back to BuyProperty page
     const handleGoBack = () => {
         navigate('/buy-property');
     };
@@ -124,38 +143,39 @@ const PropertyDetails = () => {
     return (
         <>
             <Header />
-            <div className="property-details-container">
-                <div className="property-card shadow-lg">
-                    <div className="property-card-header">
-                        <h5 className="property-card-title">{propertyAddress}</h5>
+            {isPropertyAvailable ? (
+                <div className="property-details-container">
+                    <div className="property-card shadow-lg">
+                        <div className="property-card-header">
+                            <h5 className="property-card-title">{propertyAddress}</h5>
+                        </div>
+                        <div className="property-card-body">
+                            <p><strong>City:</strong> {propertyCity}</p>
+                            <p><strong>State:</strong> {propertyState}</p>
+                            <p><strong>Zip Code:</strong> {propertyZipCode}</p>
+                            <p><strong>Status:</strong> {propertyStatus}</p>
+                            <p><strong>Price:</strong> ₹{propertyPrice ? propertyPrice.toLocaleString() : 'N/A'}</p>
+                        </div>
+                        <div className="property-card-footer d-flex justify-content-between mt-3">
+                            <Button className="btn btn-primary" onClick={handleBuyProperty}>
+                                Buy Property
+                            </Button>
+                            <Button className="btn btn-secondary" onClick={handleContactOwner}>
+                                Contact Owner
+                            </Button>
+                            <Button className="btn btn-secondary" onClick={handleGoBack}>
+                                Go Back
+                            </Button>
+                        </div>
                     </div>
-                    <div className="property-card-body">
-                        <p><strong>City:</strong> {propertyCity}</p>
-                        <p><strong>State:</strong> {propertyState}</p>
-                        <p><strong>Zip Code:</strong> {propertyZipCode}</p>
-                        <p><strong>Status:</strong> {propertyStatus}</p>
-                        <p><strong>Price:</strong> ₹{propertyPrice ? propertyPrice.toLocaleString() : 'N/A'}</p>
-                    </div>
-                    <div className="property-card-footer d-flex justify-content-between mt-3">
-                        <Button className="btn btn-primary" onClick={handleBuyProperty}>
-                            Buy Property
-                        </Button>
-                        <Button className="btn btn-secondary" onClick={handleContactOwner}>
-                            Contact Owner
-                        </Button>
-                        <Button className="btn btn-secondary" onClick={handleGoBack}>
-                            Go Back
-                        </Button>
-                    </div>
-                    {/* Go Back Button */}
-                    {/* <div className="go-back-container mt-4">
-                        <Button variant="outline-secondary" onClick={handleGoBack}>
-                            Go Back
-                        </Button>
-                    </div> */}
                 </div>
-            </div>
+            ) : (
+                <div className="alert alert-info text-center">
+                    <h4>This property is no longer available.</h4>
+                </div>
+            )}
 
+            {/* Contact Owner Modal */}
             <Modal show={showContactModal} onHide={handleCloseContactModal} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Contact Owner</Modal.Title>
@@ -232,10 +252,30 @@ const PropertyDetails = () => {
                 </Modal.Footer>
             </Modal>
 
+            {/* Success Modal */}
+            <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)} centered>
+                <Modal.Header closeButton style={{ backgroundColor: '#f0f8ff', borderBottom: 'none' }}>
+                    <Modal.Title style={{ fontWeight: 'bold', fontSize: '24px', color: '#2f4f4f' }}>Payment Successful!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body style={{ textAlign: 'center', backgroundColor: '#f0f8ff' }}>
+                    <div>
+                        <img src="https://media.giphy.com/media/GyFAXobf5QvsuZMixB/giphy.gif?cid=ecf05e47c0ccb0gf86h64x7gv4107vvzof32n1ybzkecax51&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="Success Celebration" width="200px" />
+                    </div>
+                    <h5>Your property purchase was successful.</h5>
+                    <p className="text-muted">
+                        The property is now marked as "Not Available". You can go back to the property listing.
+                    </p>
+                </Modal.Body>
+                <Modal.Footer style={{ backgroundColor: '#f0f8ff', borderTop: 'none' }}>
+                    <Button variant="primary" onClick={() => navigate('/buy-property')}>
+                        Go Back to Properties
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
             <Footer />
         </>
     );
 };
 
-export default React.memo(PropertyDetails);
-
+export default PropertyDetails;

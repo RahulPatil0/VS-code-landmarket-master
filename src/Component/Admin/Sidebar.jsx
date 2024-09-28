@@ -61,7 +61,7 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
 
         <li className="sidebar-list-item">
           <Link to="/admin/orders">
-            <BsFillGrid3X3GapFill className="icon" /> User Orders
+            <BsFillGrid3X3GapFill className="icon" /> Sailed Properties
           </Link>
         </li>
 

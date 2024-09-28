@@ -116,10 +116,12 @@ import Users from './Component/Admin/Users.jsx';
 import Report from './Component/Admin/Report.jsx';
 import Properties from './Component/Admin/Properties.jsx';
 import ImageModal from './Component/Admin/ImageModal.jsx';
+import History from './Component/Registration/History.jsx';
 
 
 import AdminPrivateRoute from './Context/AdminRoute.jsx';
 import Profile from './Component/Registration/Profile.jsx';
+import SailedProperties from './Component/Admin/SailedProperties.jsx';
 
 const App = () => {
   useEffect(() => {
@@ -166,11 +168,15 @@ const App = () => {
         <Route path="/how-to-buy" element={<HowToBuy />} />
         <Route path="/chatbox" element={<Chatbox />} />
         <Route path="/order" element={<Order />} />
+        <Route path="/history" element={<History />} />
         <Route path='/admin' element={<AdminPrivateRoute />}>
           <Route index element={<Report />} />
           <Route path='feedback' element={<Feedback />} />
           <Route path='users' element={<Users />} />
           <Route path='imagemodel' element={<ImageModal />} />
+          <Route path="properties" element={<Properties />} />
+          <Route path="sailedproperties" element={<SailedProperties />} />
+
 
         </Route>
       </Routes>
